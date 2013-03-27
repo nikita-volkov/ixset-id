@@ -56,9 +56,11 @@ insertIIS v = runState $ do
     (IxSet.insert identified identifiedIxSetValue)
   return identified
 
-updateIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
-  k -> a -> IdentifiedIxSet a -> (Identified a, IdentifiedIxSet a)
-updateIIS k v = runState $ do
+-- | If a lookup succeeds, replace the match with a value, otherwise insert it.
+replaceIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
+  a -> k ->
+  IdentifiedIxSet a -> (Identified a, IdentifiedIxSet a)
+replaceIIS v k = runState $ do
   iis@IdentifiedIxSet{..} <- get
   case getOne $ identifiedIxSetValue @= k of
     Just existing@(Identified id _) -> do
