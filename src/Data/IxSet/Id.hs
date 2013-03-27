@@ -60,10 +60,10 @@ insertIIS v = runState $ do
 
 -- | If a lookup succeeds, replace the match with a value, otherwise insert it.
 replaceIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
-  a -> 
   k ->
+  a -> 
   IIS a -> (Identified a, IIS a)
-replaceIIS v k = runState $ do
+replaceIIS k v = runState $ do
   iis@IIS{..} <- get
   case getOne $ iisValue @= k of
     Just existing@(Identified id _) -> do
