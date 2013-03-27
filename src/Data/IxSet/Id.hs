@@ -23,6 +23,16 @@ instance (SafeCopy a) => SafeCopy (Identified a) where
     safePut value
   getCopy = contain $ Identified <$> (Id <$> safeGet) <*> safeGet
 
+instance (Indexable a) => Indexable (Identified a) where
+  empty = 
+    let (IxSet ixs) = IxSet.empty :: IxSet a
+    in ixSet $ 
+      (ixFun $ (: []) . identifiedId) :
+        map identifiedIx ixs
+    where
+      ixUnfun (Ix _ f) = f
+      identifiedIx = ixFun . (. identifiedValue) . ixUnfun
+
 
 
 -- | Identified IxSet. A wrapper over IxSet managing the identification features
