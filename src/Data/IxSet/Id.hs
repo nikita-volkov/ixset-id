@@ -74,3 +74,31 @@ updateIIS k v = runState $ do
         (succ identifiedIxSetNextId)
         (IxSet.insert identified identifiedIxSetValue)
       return identified
+
+alterIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
+  (Maybe a -> Maybe a) -> 
+  k -> 
+  IdentifiedIxSet a -> (Maybe (Identified a), IdentifiedIxSet a)
+alterIIS f k = runState $ do
+  iis@IdentifiedIxSet{..} <- get
+  case getOne $ identifiedIxSetValue @= k of
+    Just identified@(Identified id value) -> 
+      case f $ Just value of
+        Just newValue -> do
+          let newIdentified = Identified id $ newValue
+          put $ iis {
+            identifiedIxSetValue = 
+              IxSet.insert newIdentified $ IxSet.delete identified 
+                $ identifiedIxSetValue
+          }
+          return $ Just newIdentified
+        Nothing -> do
+          put $ iis {
+            identifiedIxSetValue = 
+              IxSet.delete identified $ identifiedIxSetValue
+          }
+          return Nothing
+    Nothing -> 
+      case f Nothing of
+        Just newValue -> fmap Just . state $ insertIIS newValue
+        Nothing -> return Nothing
