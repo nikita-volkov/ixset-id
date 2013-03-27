@@ -47,7 +47,8 @@ emptyIIS :: (Indexable (Identified a)) => IdentifiedIxSet a
 emptyIIS = IdentifiedIxSet (Id 1) IxSet.empty
 
 insertIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
-  a -> IdentifiedIxSet a -> (Identified a, IdentifiedIxSet a)
+  a -> 
+  IdentifiedIxSet a -> (Identified a, IdentifiedIxSet a)
 insertIIS v = runState $ do
   IdentifiedIxSet{..} <- get
   let identified = Identified identifiedIxSetNextId v
@@ -58,7 +59,8 @@ insertIIS v = runState $ do
 
 -- | If a lookup succeeds, replace the match with a value, otherwise insert it.
 replaceIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
-  a -> k ->
+  a -> 
+  k ->
   IdentifiedIxSet a -> (Identified a, IdentifiedIxSet a)
 replaceIIS v k = runState $ do
   iis@IdentifiedIxSet{..} <- get
