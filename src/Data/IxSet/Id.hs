@@ -106,3 +106,19 @@ alterIIS f k = runState $ do
       case f Nothing of
         Just newValue -> fmap Just . state $ insertIIS newValue
         Nothing -> return Nothing
+
+deleteIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
+  Identified a ->
+  IdentifiedIxSet a -> IdentifiedIxSet a
+deleteIIS v iis = 
+  iis {
+    identifiedIxSetValue = IxSet.delete v $ identifiedIxSetValue iis
+  }
+
+deleteAtIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
+  k ->
+  IdentifiedIxSet a -> IdentifiedIxSet a
+deleteAtIIS k iis = 
+  iis {
+    identifiedIxSetValue = IxSet.deleteIx k $ identifiedIxSetValue iis
+  }
