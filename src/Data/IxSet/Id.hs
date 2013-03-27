@@ -25,6 +25,7 @@ instance (SafeCopy a) => SafeCopy (Identified a) where
 
 
 
+-- | A wrapper over IxSet managing the identification features
 data IdentifiedIxSet a = 
   IdentifiedIxSet {
     identifiedIxSetNextId :: Id a,
