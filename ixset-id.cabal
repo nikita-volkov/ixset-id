@@ -1,0 +1,29 @@
+name:               ixset-id
+version:            0.1.0
+cabal-version:      >=1.8
+build-type:         Simple
+license:            MIT
+license-file:       LICENSE
+copyright:          (c) 2013, Nikita Volkov
+author:             Nikita Volkov
+maintainer:         Nikita Volkov <nikita.y.volkov@mail.ru>
+stability:          experimental
+homepage:           https://github.com/nikita-volkov/ixset-id
+bug-reports:        https://github.com/nikita-volkov/ixset-id/issues
+synopsis:           Automated management of ids for IxSet
+description:        
+category:           
+
+library
+  hs-source-dirs:   src
+  extensions:       PatternGuards
+  exposed-modules:  Data.IxSet.Id
+  other-modules:    
+  build-depends:    base >= 4.5 && < 5,
+                    ixset,
+                    mtl,
+                    safecopy
+
+source-repository head
+  type:             git
+  location:         git://github.com/nikita-volkov/ixset-id.git
