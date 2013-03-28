@@ -128,21 +128,21 @@ lookupIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
   k -> IIS a -> Maybe a
 lookupIIS k iis = undefined
 
-alterWhereIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
+filterAndReplaceIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
   (IIS a -> IIS a) -> 
   -- ^ An altering function
   (IIS a -> IIS a) ->
   -- ^ A filtering function
-  (IIS a -> (IIS a, IIS a))
-  -- ^ The resulting state-function, returning the modified values
-alterWhereIIS f k = undefined
+  (IIS a -> IIS a)
+  -- ^ The resulting state-function
+filterAndReplaceIIS f k = undefined
 
-updateWhereIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
+filterAndUpdateIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
   (a -> Maybe a) -> 
   -- ^ An altering function
   (IIS a -> IIS a) ->
   -- ^ A filtering function
   (IIS a -> (IIS a, IIS a))
   -- ^ The resulting state-function, returning the modified values
-updateWhereIIS f k = undefined
+filterAndUpdateIIS f k = undefined
 
