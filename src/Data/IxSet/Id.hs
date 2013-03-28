@@ -81,10 +81,10 @@ replaceIIS k v = runState $ do
       return identified
 
 alterIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
-  (Maybe a -> Maybe a) -> 
   k -> 
+  (Maybe a -> Maybe a) -> 
   IIS a -> (Maybe (Identified a), IIS a)
-alterIIS f k = runState $ do
+alterIIS k f = runState $ do
   iis@IIS{..} <- get
   case getOne $ iisValue @= k of
     Just identified@(Identified id value) -> 
