@@ -123,3 +123,26 @@ deleteAtIIS k iis =
   iis {
     iisValue = IxSet.deleteIx k $ iisValue iis
   }
+
+lookupIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
+  k -> IIS a -> Maybe a
+lookupIIS k iis = undefined
+
+alterWhereIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
+  (IIS a -> IIS a) -> 
+  -- ^ An altering function
+  (IIS a -> IIS a) ->
+  -- ^ A filtering function
+  (IIS a -> (IIS a, IIS a))
+  -- ^ The resulting state-function, returning the modified values
+alterWhereIIS f k = undefined
+
+updateWhereIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
+  (a -> Maybe a) -> 
+  -- ^ An altering function
+  (IIS a -> IIS a) ->
+  -- ^ A filtering function
+  (IIS a -> (IIS a, IIS a))
+  -- ^ The resulting state-function, returning the modified values
+updateWhereIIS f k = undefined
+
