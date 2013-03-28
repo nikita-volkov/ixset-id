@@ -129,11 +129,11 @@ lookupIIS :: (Ord a, Typeable a, Indexable (Identified a), Typeable k) =>
 lookupIIS k iis = undefined
 
 filterAndReplaceIIS :: (Ord a, Typeable a, Indexable (Identified a)) =>
-  (IIS a -> IIS a) -> 
+  (IIS a -> (b, IIS a)) -> 
   -- ^ An altering function
   (IIS a -> IIS a) ->
   -- ^ A filtering function
-  (IIS a -> IIS a)
+  (IIS a -> (b, IIS a))
   -- ^ The resulting state-function
 filterAndReplaceIIS f k = undefined
 
